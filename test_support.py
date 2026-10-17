@@ -22,22 +22,22 @@ class SupportTests(unittest.TestCase):
     def test_delayed_order_persists_ticket_without_duplicates(self):
         self.assertTrue(server.get_order("1042")["is_delayed"])
         self.assertTrue(server.get_shipment("1042")["found"])
-        first = server.create_support_ticket("1042", "Teslimat gecikti.")
+        first = server.create_support_ticket("1042", "Delivery is delayed.")
         self.assertTrue(first["created"])
-        again = server.create_support_ticket("1042", "Tekrar kontrol.")
+        again = server.create_support_ticket("1042", "Check again.")
         self.assertEqual(again["reason"], "already_exists")
         self.assertEqual(first["ticket"]["ticket_id"], again["ticket"]["ticket_id"])
         self.assertEqual(len(server.read_data("tickets.json")), 1)
 
     def test_on_time_order_cannot_create_ticket(self):
         self.assertFalse(server.get_order("1043")["is_delayed"])
-        self.assertEqual(server.create_support_ticket("1043", "Kontrol")["reason"], "not_delayed")
+        self.assertEqual(server.create_support_ticket("1043", "Check")["reason"], "not_delayed")
         self.assertEqual(server.read_data("tickets.json"), [])
 
     def test_unknown_order(self):
         self.assertFalse(server.get_order("9999")["found"])
         self.assertFalse(server.get_shipment("9999")["found"])
-        self.assertEqual(server.create_support_ticket("9999", "Kontrol")["reason"], "order_not_found")
+        self.assertEqual(server.create_support_ticket("9999", "Check")["reason"], "order_not_found")
 
     def test_empty_summary(self):
         with self.assertRaises(ValueError):

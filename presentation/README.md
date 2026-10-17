@@ -1,4 +1,4 @@
-﻿# From LLM to AI Agent
+# From LLM to AI Agent
 
 Story-driven, gamified intro for the Uzimsoft Academy workshop. Open `index.html` in a modern browser; no build, packages, API keys or internet connection required.
 
@@ -20,7 +20,7 @@ One analogy carries the whole deck: **a brilliant assistant who can’t use a co
 ## Presenting
 
 - ← → or the sidebar to navigate; hashes `#0` to `#7` link to levels.
-- **N** (or the 🎤 button) toggles Turkish speaker notes with the narration for each level; **Esc** closes them.
+- **N** (or the 🎤 button) toggles English speaker notes with the narration for each level; **Esc** closes them.
 - Ask the room to vote A/B/C before clicking. No timer or penalty.
 
 Optional local server from the workshop-test folder:

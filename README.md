@@ -15,8 +15,8 @@ The flow is: **your request → Codex chooses a tool → MCP calls a Python func
 | `data/tickets.json` | Support tickets saved by the demo |
 | `test_support.py` | Automated support workflow tests |
 | [presentation/README.md](presentation/README.md) | Interactive presentation instructions |
-| [DEMO.md](DEMO.md) | Turkish demo prompts and scenarios |
-| [commands.md](commands.md) | Turkish workshop command reference |
+| [DEMO.md](DEMO.md) | Demo prompts and scenarios |
+| [commands.md](commands.md) | Workshop command reference |
 | [HOMEWORK.md](HOMEWORK.md) | Assignments to complete after the workshop |
 
 ## Step 1: Prepare your computer

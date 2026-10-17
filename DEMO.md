@@ -1,45 +1,44 @@
-# Sipariş destek asistanı provası
+# Order Support Assistant Rehearsal
 
-Mevcut task-manager MCP kaydı aynı server.py dosyasını kullanır. Yeni sunucu kaydı gerekmez.
-Dosyayı kaydettikten sonra VS Code'da Developer: Reload Window çalıştır ve yeni Codex sohbeti aç.
+The existing task-manager MCP registration uses the same server.py file. You do not need another server registration.
+After saving the file, run **Developer: Reload Window** in VS Code and open a new Codex conversation.
 
-## Demo sınırları
+## Demo boundaries
 
-Sipariş ve kargo verileri örnektir. Hesaplamalarda sabit 17 Ekim 2026 demo tarihi kullanılır;
-böylece yarın ve daha sonraki provalarda senaryolar değişmez. Gerçek bugünün tarihi değildir.
-Destek kayıtları gerçekten data/tickets.json dosyasına yazılır; şirket veya kargo sistemine iletilmez.
-Tek yerel sunucu ve tek kullanıcı için eğitim örneğidir; üretim kullanımı için kimlik doğrulama ve veritabanı gerekir.
+The order and shipment data is simulated. Calculations use the fixed demo date of **17 October 2026**, so scenarios remain consistent in future rehearsals. This is not the actual current date.
+Support tickets are written to data/tickets.json; they are not sent to a company or carrier.
+This is a learning example for one local server and one user. Production use would require authentication and a database.
 
-## Her yeni sohbetin başında
+## Start each new conversation with this instruction
 
-> Bir sipariş destek asistanısın. Yalnızca task-manager MCP araçlarıyla işlem yap; terminal veya doğrudan dosya okuma/yazma kullanma. Sipariş ve kargo verileri simülasyon, demo tarihi 17 Ekim 2026. Önce siparişi kontrol et, varsa kargoyu sorgula. Kullanıcı kayıt açılmasını isterse ve sipariş gecikmişse destek kaydı aç. Sipariş bulunamazsa doğru numarayı iste. Araç çıktısında olmayan bilgi uydurma. Destek kaydının yerel demo kaydı olduğunu belirt. Araçlara erişemiyorsan bunu söyle.
+> You are an order support assistant. Use only the task-manager MCP tools; do not use the terminal or read or write files directly. The order and shipment data is simulated, and the demo date is 17 October 2026. Check the order first, then look up its shipment if the order exists. Create a support ticket only if the user requests one and the order is delayed. If the order is not found, ask for the correct number. Do not invent information that is absent from the tool output. Explain that the support ticket is a local demo record. If you cannot access the tools, say so.
 
-## Senaryolar
+## Scenarios
 
-1. “1042 numaralı siparişim gelmedi. Kontrol et, gecikmişse destek kaydı aç.”
-   Beklenen: get_order → get_shipment → create_support_ticket. SUP-0001 oluşturulur (ilk kayıtta).
-2. Aynı isteği tekrarla. Beklenen: yeni kayıt yerine mevcut açık kayıt döner.
-3. “1043 numaralı siparişimi kontrol et, gecikmişse destek kaydı aç.”
-   Beklenen: sipariş ve kargo sorgulanır; gecikme yok, kayıt açılmaz.
-4. “9999 numaralı siparişim nerede?”
-   Beklenen: bulunamadığı açıklanır, doğru numara istenir, kayıt açılmaz.
+1. “Order 1042 has not arrived. Check it and create a support ticket if it is delayed.”
+   Expected: get_order → get_shipment → create_support_ticket. The first ticket is SUP-0001 when ticket storage is empty.
+2. Repeat the same request. Expected: return the existing open ticket instead of creating another one.
+3. “Check order 1043 and create a support ticket if it is delayed.”
+   Expected: check the order and shipment; there is no delay, so no ticket is created.
+4. “Where is order 9999?”
+   Expected: explain that the order was not found, ask for the correct number, and do not create a ticket.
 
-Sadece cevabı değil araç çağrılarını da göster. Ardından data/tickets.json dosyasını açarak kalıcı sonucu göster.
+Show the tool calls as well as the answer. Then open data/tickets.json to show the persisted result.
 
-## Anlatım
+## Talking points
 
-Python fonksiyonları veriyi getirir ve işlemi yapar. MCP, bu araçları Codex'e sunar.
-Codex kullanıcı isteğini ve araç sonuçlarını değerlendirip sonraki aracı seçer.
-Gecikme kuralı sunucuda da kontrol edilir; model yanlış araç seçse bile zamanında siparişe kayıt açılmaz.
+Python functions retrieve data and perform actions. MCP offers those tools to Codex.
+Codex uses the request and tool results to choose the next tool.
+The server also enforces the delay rule: even if the model selects the wrong tool, it cannot create a delay ticket for an on-time order.
 
-## Kontrol
+## Verification
 
 ```powershell
 .\.venv\Scripts\python.exe -m unittest test_support.py -v
 ```
 
-Testler geçici klasör kullanır, gerçek demo kayıtlarına dokunmaz.
-İlk başarılı prova sonrasında bağımlılıkları sabitlemek için:
+The tests use a temporary folder and do not modify the actual demo tickets.
+After the first successful rehearsal, freeze the dependencies:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip freeze > requirements.txt
