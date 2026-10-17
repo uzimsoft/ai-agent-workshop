@@ -1,6 +1,6 @@
 # Workshop Homework
 
-Extend the workshop's Python MCP server and show that an assistant can use your tools correctly. Complete the [README setup](README.md) first, including the data-path correction and four existing tests.
+Extend the workshop's Python MCP server and show that an assistant can use your tools correctly. Complete the [README setup](README.md) first, including the four existing tests.
 
 Plan for approximately **2–3 hours**. Assignments 1–5 are required; the bonus challenges are optional. You may use an AI assistant, but you should be able to explain every submitted change.
 

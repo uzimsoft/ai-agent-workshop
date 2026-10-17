@@ -43,33 +43,15 @@ python -m venv .venv
 
 Expected output from the last command: `MCP ready`. This workshop uses the MCP 1.x `FastMCP` API. Commands use the environment's Python directly, so activation is unnecessary.
 
-## Step 3: Correct the starter data path
-
-The JSON files live in `data/`. The server currently names its path constant `DATA_FILE`, while the tests expect `DATA_DIR`; make them consistent before running the tests.
-
-In `server.py`, replace:
-
-```python
-DATA_FILE = BASE_DIR / "data"
-```
-
-with:
-
-```python
-DATA_DIR = BASE_DIR / "data"
-```
-
-Then replace the other two occurrences of `DATA_FILE` with `DATA_DIR`: one in `read_data()` and one in `create_support_ticket()`. If an older copy points to `data/data`, correct that to `data` as well. Save the file. If your copy already uses `DATA_DIR` consistently and points to `data/`, skip this correction.
-
-## Step 4: Run the existing tests
+## Step 3: Run the existing tests
 
 ```powershell
 .\.venv\Scripts\python.exe -m unittest test_support.py -v
 ```
 
-After the correction, expect four passing tests and `OK`. They cover delayed orders, duplicate tickets, on-time orders, unknown orders, and blank summaries. The tests use temporary ticket storage so they do not change your demo tickets.
+A successful run reports four passing tests and `OK`. They cover delayed orders, duplicate tickets, on-time orders, unknown orders, and blank summaries. The tests use temporary ticket storage so they do not change your demo tickets.
 
-## Step 5: Check that the server starts
+## Step 4: Check that the server starts
 
 ```powershell
 .\.venv\Scripts\python.exe server.py
@@ -77,7 +59,7 @@ After the correction, expect four passing tests and `OK`. They cover delayed ord
 
 The process should wait for an MCP client. It is a **stdio server**, so it does not open a webpage or show a chat prompt. Press **Ctrl+C** to stop this manual check. Codex will launch its own server process after registration.
 
-## Step 6: Connect the server to Codex
+## Step 5: Connect the server to Codex
 
 Run these commands from the project folder:
 
@@ -92,7 +74,7 @@ Check that the configuration contains your environment's Python and this project
 
 In VS Code, run **Ctrl+Shift+P → Developer: Reload Window**, then open a new Codex conversation. If you use the CLI, start a new `codex` session. Restart the client after later tool changes as well.
 
-## Step 7: Try the task tools
+## Step 6: Try the task tools
 
 Send this prompt to Codex:
 
@@ -100,7 +82,7 @@ Send this prompt to Codex:
 
 Look for calls to `add_task` and `list_tasks`. Open `tasks.json` afterward to check that your task was saved alongside the existing sample tasks. Repeating the request adds another task; task deduplication is not implemented.
 
-## Step 8: Try the order support workflow
+## Step 7: Try the order support workflow
 
 Start with this instruction:
 
@@ -119,7 +101,7 @@ Inspect the tool calls and `data/tickets.json`, not just the assistant's reply. 
 
 Delay checks use **17 October 2026**, the fixed date in `data/orders.json`, rather than your computer's current date. Order 1042 is late; order 1043 is not. Creating a ticket writes a local file and does not contact a carrier or support team.
 
-## Step 9: Explore the code and presentation
+## Step 8: Explore the code and presentation
 
 In `server.py`, identify `@mcp.tool()` above each exposed function. Read its parameters, docstring, return value, and any file writes. Notice that the server itself rejects tickets for orders that are not delayed, even if a model asks to create one.
 
@@ -131,7 +113,7 @@ Open `presentation/index.html` in a browser, or serve the presentation in anothe
 
 Visit `http://localhost:8080`. Press **Ctrl+C** in that terminal when finished. The presentation uses local simulations; it does not call the live MCP server.
 
-## Step 10: Complete the homework
+## Step 9: Complete the homework
 
 Continue with [HOMEWORK.md](HOMEWORK.md). Complete the required assignments in order, record your results, and choose a bonus challenge if you have time.
 
@@ -140,8 +122,6 @@ Continue with [HOMEWORK.md](HOMEWORK.md). Complete the required assignments in o
 | Problem | What to check |
 | --- | --- |
 | `No module named mcp` | Install the package with `.\.venv\Scripts\python.exe -m pip` and use that same Python to run the server. |
-| `server` has no attribute `DATA_DIR` | Complete Step 3; the tests and server must use the same constant. |
-| File not found under `data/data` | Complete Step 3 and confirm all three JSON files exist in `data/`. |
 | Codex cannot see the tools | Check `codex mcp get task-manager`, verify both absolute paths, and restart the client. |
 | Server appears to do nothing | Waiting is normal for stdio. Send requests through the connected MCP client. |
 | Invalid JSON error | Inspect the named JSON file for missing quotes, commas, or brackets; preserve any records you need. |
