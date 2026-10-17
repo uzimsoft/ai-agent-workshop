@@ -1,0 +1,9 @@
+[
+  {
+    "ticket_id": "SUP-0001",
+    "order_id": "1042",
+    "summary": "Wireless keyboard order 1042 has not been delivered. The estimated delivery date was 15 October 2026; it is 2 days late relative to the system's fixed demo date of 17 October 2026. Demo Courier tracking number: DEMO1042. The shipment is waiting at the transfer center. Latest event: the package arrived at the transfer center on 14 October 2026 at 10:30 (+03:00).",
+    "status": "open",
+    "demo_date": "2026-10-17"
+  }
+]

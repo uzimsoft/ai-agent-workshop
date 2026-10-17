@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="From LLM to AI Agent: a story-driven, gamified introduction to LLMs, tools, AI agents and MCP. Uzimsoft Academy workshop.">
+  <title>From LLM to AI Agent — Uzimsoft Academy</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="brand.css">
+  <link rel="stylesheet" href="story.css">
+  <link rel="icon" type="image/png" href="main-logo.png">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="https://academy.uzimsoft.com" target="_blank" rel="noopener noreferrer" aria-label="Uzimsoft Academy website"><img src="logo-withname.png" alt="Uzimsoft Academy"></a>
+    <div class="course-label">THE LEVELS</div>
+    <nav id="chapters" aria-label="Presentation levels"></nav>
+    <div class="sidebar-bottom">
+      <div class="agent-companion">
+        <button id="agent-toggle" class="agent-toggle" aria-pressed="true" aria-label="Pause agent animation" title="Pause agent animation">
+          <span class="agent-antenna" aria-hidden="true"></span>
+          <span class="agent-arm left" aria-hidden="true"></span>
+          <span class="agent-arm right" aria-hidden="true"></span>
+          <span class="agent-head" aria-hidden="true"><span class="agent-face"><span class="agent-eye"><span class="agent-pupil"></span></span><span class="agent-eye"><span class="agent-pupil"></span></span><span class="agent-smile"></span></span></span>
+          <span class="agent-body" aria-hidden="true"><img src="main-logo.png" alt=""></span>
+          <span class="agent-level" id="agent-level" aria-hidden="true">Lv 0</span>
+        </button>
+        <span class="agent-caption" id="agent-caption">Your curious little copilot</span>
+      </div>
+      <a class="company-link" href="https://uzimsoft.com" target="_blank" rel="noopener noreferrer">A workshop by <strong>uzimsoft</strong><span>↗</span></a>
+    </div>
+  </aside>
+  <div class="workspace">
+    <header>
+      <span>FROM LLM TO AI AGENT <span class="header-divider">/</span> <span id="section-name">START</span></span>
+      <span class="header-actions"><button id="notes-toggle" class="quiet" aria-pressed="false" aria-controls="notes">🎤 <span>Speaker notes (N)</span></button><button id="fullscreen" class="quiet">⛶ <span>Full screen</span></button></span>
+    </header>
+    <div class="game-bar">
+      <div class="hud">
+        <span class="hud-level">Assistant <strong id="hud-level">Lv. 0</strong></span>
+        <span class="xp-track" aria-hidden="true"><i id="xp-fill"></i></span>
+        <strong id="xp" aria-live="polite">0 / 120 XP</strong>
+        <span id="abilities" class="abilities" aria-label="Unlocked abilities"></span>
+      </div>
+      <button id="reset-game" class="quiet">Reset practice</button>
+      <span id="game-status" class="sr-only" role="status"></span>
+    </div>
+    <main id="slide" tabindex="-1"></main>
+    <footer><div class="counter"><strong id="slide-number">00</strong><span id="slide-total">/ 07</span><div id="progress" aria-label="Presentation progress"></div></div><div class="navigation"><span class="keyboard-hint">← → navigate · N notes</span><button id="prev" aria-label="Previous slide">←</button><button id="next" class="primary">Next level <span>→</span></button></div></footer>
+  </div>
+  <aside id="notes" class="notes" hidden aria-label="Speaker notes"></aside>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <script src="app.js"></script>
+  <script src="companion.js"></script>
+</body>
+</html>

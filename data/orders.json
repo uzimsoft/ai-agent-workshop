@@ -1,0 +1,7 @@
+{
+  "demo_date": "2026-10-17",
+  "orders": [
+    {"order_id": "1042", "product": "Wireless keyboard", "status": "shipped", "estimated_delivery": "2026-10-15"},
+    {"order_id": "1043", "product": "USB-C hub", "status": "shipped", "estimated_delivery": "2026-10-20"}
+  ]
+}
